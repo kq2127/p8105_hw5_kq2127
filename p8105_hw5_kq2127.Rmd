@@ -44,3 +44,34 @@ iris_with_missing %>%
 )
 ```
 
+
+
+```{r}
+replace_na = function(x) {
+  if (is.numeric(x)) {
+    x[is.na(x)] = mean(x, na.rm = TRUE)
+    x }
+  else if (is.character(x)) {
+    x[is.na(x)] = "virginica"
+    x
+  }
+}
+```
+
+
+Testing the function
+```{r}
+replace_na(iris_with_missing[[1]])
+replace_na(iris_with_missing[[2]])
+replace_na(iris_with_missing[[3]])
+replace_na(iris_with_missing[[4]])
+replace_na(iris_with_missing[[5]])
+```
+
+Applying the function and mapping
+```{r}
+output = map_dfr(iris_with_missing, replace_na)
+
+output
+```
+
