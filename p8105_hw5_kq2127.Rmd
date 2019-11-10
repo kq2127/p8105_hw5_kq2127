@@ -75,3 +75,19 @@ output = map_dfr(iris_with_missing, replace_na)
 output
 ```
 
+# Problem 2
+
+```{r}
+pb2_df =list.files(path = "./data") 
+
+#op = map(pb2_df, read_csv)
+
+
+#for (i in a){
+#b <- read.csv(i)
+#}
+
+```
+
+
+
