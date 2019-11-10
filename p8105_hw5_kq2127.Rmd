@@ -78,15 +78,33 @@ output
 # Problem 2
 
 ```{r}
-pb2_df =list.files(path = "./data") 
+pb2_df = list.files(path = "./data/",
+                    pattern = "*.csv",
+                    full.names = TRUE) 
 
-#op = map(pb2_df, read_csv)
-
-
-#for (i in a){
-#b <- read.csv(i)
-#}
-
+op = 
+    map_df(pb2_df, read_csv, .id = "input") %>% 
+    rename(id = input) %>% 
+    mutate(
+      id = as.numeric(id),
+      arm = ifelse(id <= 10, "con", "exp"),
+      id = recode(id,
+       '11' = 1,
+       '12' = 2,
+       '13' = 3,
+       '14' = 4,
+       '15' = 5,
+       '16' = 6,
+       '17' = 7,
+       '18' = 8,
+       '19' = 9,
+       '20' = 10)) %>% 
+    pivot_longer(
+      week_1:week_8,
+      names_to = "week",
+      names_prefix = "week_",
+      values_to = "observation") %>%
+    select(id, arm, everything())
 ```
 
 
