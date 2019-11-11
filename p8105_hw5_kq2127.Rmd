@@ -2,9 +2,7 @@
 title: "p8105_hw5_kq2127"
 author: "Kristal Quispe"
 date: "11/6/2019"
-output: github_document
-editor_options: 
-  chunk_output_type: console
+output: md_document
 ---
 
 ```{r setup, include = FALSE}
@@ -187,14 +185,28 @@ sim_results %>%
 Due to computer capabilities, I could not run each beta1 more than 100 times each without crashing my computer , thus the plot does not represent the actual relationship between effect size and power. But, from my stats classe I know that as effect size increases, the power of a test also increases. 
 
  
- 
 ```{r}
 sim_results %>% 
+  group_by(beta1) %>% 
   mutate(avg_beta1_hat = mean(beta1_hat)) %>% 
   ggplot(aes(x = beta1, y = avg_beta1_hat)) + 
   geom_point(alpha =.5) +
   geom_line() 
 ```
 
-Due to small sample size, I could not generate a plot that is comprehensive of the beta 1 and  average beta 1 hat relationship. As we increase the number of runs, beta 1 hat approaches the value of beta 1.
+Due to small sample size, I could not generate a plot that is comprehensive of the beta 1 and  average beta 1 hat relationship. As we increase the number of runs, beta 1 hat should approache the true value of beta 1.
 
+
+```{r}
+sim_results %>% 
+  filter (p < 0.05) %>% 
+  group_by(beta1) %>% 
+  mutate(avg_beta1_hat = mean(beta1_hat)) %>% 
+  ggplot(aes(x = beta1, y = avg_beta1_hat)) + 
+  geom_point() +
+  geom_line()
+```
+
+The sample average of beta 1 hat across tests for which the null is rejected is not approximately equal to the true value of beta 1. This is because, in filtering out the beta 1 hat approximations where we fail to reject the null, we reduce the number of samples. As samples decrease, beta 1 hat gets further and further away from the true value of beta 1. 
+
+I had to render the documnet to a md_document beucase after my second plot, I kept getting the following error which would not let me knit: pandoc document conversion failed with error 1022. My computer was also not able to process 10,000 samples as specified in question 3, it kept almost crashing so I could only run 100 samples per beta 1. 
