@@ -105,6 +105,20 @@ op =
       names_prefix = "week_",
       values_to = "observation") %>%
     select(id, arm, everything())
+
+op %>% 
+  filter(arm == "con") %>% 
+  mutate (id = as.character(id)) %>% 
+  ggplot(aes(x = week, y = observation, color = id)) + 
+  geom_point(alpha =.5) + geom_smooth(se = FALSE) 
+
+op %>% 
+  filter(arm == "exp") %>% 
+  mutate (id = as.character(id)) %>% 
+  ggplot(aes(x = week, y = observation, color = id)) + 
+  geom_point(alpha =.5) + geom_smooth(se = FALSE) 
+  
+
 ```
 
 
