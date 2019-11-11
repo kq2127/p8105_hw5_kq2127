@@ -209,4 +209,4 @@ sim_results %>%
 
 The sample average of beta 1 hat across tests for which the null is rejected is not approximately equal to the true value of beta 1. This is because, in filtering out the beta 1 hat approximations where we fail to reject the null, we reduce the number of samples. As samples decrease, beta 1 hat gets further and further away from the true value of beta 1. 
 
-I had to render the documnet to a md_document beucase after my second plot, I kept getting the following error which would not let me knit: pandoc document conversion failed with error 1022. My computer was also not able to process 10,000 samples as specified in question 3, it kept almost crashing so I could only run 100 samples per beta 1. 
+I had to render the documnet to a md_document beucase after my second plot, I kept getting the following error which would not let me knit: pandoc document conversion failed with error 1033. My computer was also not able to process 10,000 samples as specified in question 3, it kept almost crashing so I could only run 100 samples per beta 1. 
