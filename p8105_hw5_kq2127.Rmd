@@ -33,23 +33,14 @@ iris_with_missing = iris %>%
   map_df(~replace(.x, sample(1:150, 20), NA)) %>%
   mutate(Species = as.character(Species))
 
-
-iris_with_missing %>% 
-    mutate( 
-      Species = replace_na(Species,"virginica"), 
-      Sepal.Length = replace_na(Sepal.Length, round(mean(Sepal.Length, na.rm = TRUE),1)),
-      Sepal.Width = replace_na(Sepal.Width, round(mean(Sepal.Width, na.rm = TRUE),1)),
-      Petal.Length = replace_na(Petal.Length, round(mean(Petal.Length, na.rm = TRUE),1)),
-      Petal.Width = replace_na(Petal.Width, round(mean(Petal.Width, na.rm = TRUE),1))
-)
 ```
 
 
-
+Writting the Function
 ```{r}
 replace_na = function(x) {
   if (is.numeric(x)) {
-    x[is.na(x)] = mean(x, na.rm = TRUE)
+    x[is.na(x)] = round(mean(x, na.rm = TRUE),1)
     x }
   else if (is.character(x)) {
     x[is.na(x)] = "virginica"
@@ -115,6 +106,14 @@ pb2_df %>%
   ggtitle("Observations over time") 
 
 
+```
+Over time, the control arm tends to have an overall constant trend: there are dips and rises in observation values over time that mostly average out. On the other hand the experimental arm tends to increase in its observations values over time. 
+
+
+# Problem 3
+
+```{r}
+#pb3_df
 ```
 
 
