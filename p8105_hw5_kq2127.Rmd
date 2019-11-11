@@ -171,14 +171,30 @@ sim_results =
 sim_results
 ```
 
-Plot
+Plots
 ```{r}
 sim_results %>% 
   mutate(
-    power = ifelse(p < 0.05, 1, 0))
+    power = ifelse(p < 0.05, 1, 0)) %>% 
+  ggplot(aes(x = beta1, y = mean(power))) + 
+  geom_point(alpha =.5) +
+  geom_line() +
+  ggtitle("Association between effect size and power") +
+  labs(y = "Power")
 
-  
-  
 ```
 
+Due to computer capabilities, I could not run each beta1 more than 100 times each without crashing my computer , thus the plot does not represent the actual relationship between effect size and power. But, from my stats classe I know that as effect size increases, the power of a test also increases. 
+
+ 
+ 
+```{r}
+sim_results %>% 
+  mutate(avg_beta1_hat = mean(beta1_hat)) %>% 
+  ggplot(aes(x = beta1, y = avg_beta1_hat)) + 
+  geom_point(alpha =.5) +
+  geom_line() 
+```
+
+Due to small sample size, I could not generate a plot that is comprehensive of the beta 1 and  average beta 1 hat relationship. As we increase the number of runs, beta 1 hat approaches the value of beta 1.
 
