@@ -3,6 +3,8 @@ title: "p8105_hw5_kq2127"
 author: "Kristal Quispe"
 date: "11/6/2019"
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -137,40 +139,46 @@ print(pb3_df)
 ```
 
 
+Testting the function
 ```{r}
 sim_regression(beta1 = 0)
 ```
 
 
-
-
+Generating 100 datasets
 ```{r}
-output = 
-  rerun(10, sim_regression(beta1 = 0 )) %>% 
+output_2 = 
+  rerun(100, sim_regression(beta1 = 0 )) %>% 
   bind_rows()
 
-#10000 was on the verge of crashing my computer so I could only run 100.  Sorry. 
+output_2
 
 ```
 
+In regards to the simulation samples, 10000 was on the verge of crashing my computer so I could only run 100.
 
 
-
+Rerun function with beta1 as 1-6
 ```{r}
-#n_list = list("b1_1" = 1, 
-#              "b1_2" = 2, 
-#              "b1_3" = 3, 
-#              "b1_4" = 4,
-#              "b1_5" = 5,
-#              "b1_6" = 6,)
-#output = vector("list", length = 6)
+sim_results = 
+  tibble(beta1 = c(1, 2, 3, 4, 5, 6)) %>% 
+  mutate(
+    output_lists = map(.x = beta1, ~rerun(100, sim_regression(beta1 = .x))),
+    estimate_dfs = map(output_lists, bind_rows)) %>% 
+  select(-output_lists) %>% 
+  unnest(estimate_dfs)
 
-#for (i in 1:6) {
-#  output[[i]] = rerun(100, sim_regression(n_list[[i]])) %>% 
-#    bind_rows
-#}
+sim_results
+```
 
+Plot
+```{r}
+sim_results %>% 
+  mutate(
+    power = ifelse(p < 0.05, 1, 0))
 
+  
+  
 ```
 
 
