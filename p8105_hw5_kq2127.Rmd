@@ -149,7 +149,7 @@ output =
   rerun(10, sim_regression(beta1 = 0 )) %>% 
   bind_rows()
 
-#10000 was on the verge of crashing my computer so I could only run 100. 
+#10000 was on the verge of crashing my computer so I could only run 100.  Sorry. 
 
 ```
 
